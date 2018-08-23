@@ -3,11 +3,10 @@
 
 int main(int argc, char *argv[])
 {
-    int nums[] = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
+    int nums[] = {1,1,2};
     int numSize = sizeof (nums) / sizeof (int);
 
-    printf("%d\n", removeDuplicates(nums, numSize));
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < removeDuplicates(nums, numSize); ++i) {
         printf("%d ", nums[i]);
     }
     printf("\n");
