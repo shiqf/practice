@@ -53,3 +53,5 @@ bundle
 # tags file
 tags
 
+# not need file
+*.csv
