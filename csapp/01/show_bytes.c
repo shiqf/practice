@@ -34,6 +34,7 @@ void test_show_bytes(int val) {
 }
 
 void itoa(int val, char *s, int ary) {
+    printf("%d: ", val);
     int m, n, i = 0;
 
     do {
@@ -46,18 +47,57 @@ void itoa(int val, char *s, int ary) {
     
     *(s + i) = '\0';
 
-    int start = 0;
+    int begin = 0;
     int end = strlen(s) - 1;
 
-    while (start < end) {
-        *(s + start) ^= *(s + end);
-        *(s + end) ^= *(s + start);
-        *(s + start) ^= *(s + end);
-        start++;
+    while (begin < end) {
+        *(s + begin) ^= *(s + end);
+        *(s + end) ^= *(s + begin);
+        *(s + begin) ^= *(s + end);
+        begin++;
         end--;
     }
 
     printf("%s\n", s);
-    
+}
 
+void ito2(byte_pointer start, size_t len, char *s) {
+    int i = 0;
+    int j = 0;
+    int ary = 2;
+    int m, n;
+    for (i = 0; i < len; ++i) {
+        int val = *(start + i);
+        for (j = 0; j < __CHAR_BIT__; ++j) {
+            m = val / ary;
+            n = val % ary;
+            *(s + i * __CHAR_BIT__ + j) = n + '0';
+            val = m;
+        }
+    }
+
+    *(s + i * __CHAR_BIT__ + j) = '\0';
+
+    int begin = 0;
+    int end = strlen(s) - 1;
+
+    while (begin < end) {
+        *(s + begin) ^= *(s + end);
+        *(s + end) ^= *(s + begin);
+        *(s + begin) ^= *(s + end);
+        begin++;
+        end--;
+    }
+
+    printf("%s\n", s);
+}
+
+void show_2int(int x, char *s) {
+    printf("%x: ", x);
+    ito2((byte_pointer) &x, sizeof(int), s);
+}
+
+void show_2float(float x, char *s) {
+    printf("%f: ", x);
+    ito2((byte_pointer) &x, sizeof(float), s);
 }
