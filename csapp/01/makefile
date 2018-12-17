@@ -1,6 +1,6 @@
 CC=clang
 
-OBJ=main.o
+OBJ=main.o show_bytes.o
 
 main:${OBJ}
 
