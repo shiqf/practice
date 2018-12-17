@@ -1,6 +1,5 @@
-#ifndef _01_H
-
-#define _01_H
+#ifndef __01_H__
+#define __01_H__
 #include <stdio.h>
 
 typedef unsigned char *byte_pointer;
@@ -17,5 +16,4 @@ extern void ito2(byte_pointer start, size_t len, char *s);
 
 extern void itoa(int val, char *s, int ary);
 
-#endif /* ifndef  */
-
+#endif /* ifndef __01_H__ */
