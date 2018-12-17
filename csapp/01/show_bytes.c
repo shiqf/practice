@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 typedef unsigned char *byte_pointer;
 
@@ -32,6 +33,31 @@ void test_show_bytes(int val) {
     show_pointer(pval);
 }
 
-void itoa(int val) {
+void itoa(int val, char *s, int ary) {
+    int m, n, i = 0;
+
+    do {
+        m = val % ary;
+        n = val / ary;
+        *(s + i) = m + '0';
+        val = n;
+        i++;
+    } while (n);
     
+    *(s + i) = '\0';
+
+    int start = 0;
+    int end = strlen(s) - 1;
+
+    while (start < end) {
+        *(s + start) ^= *(s + end);
+        *(s + end) ^= *(s + start);
+        *(s + start) ^= *(s + end);
+        start++;
+        end--;
+    }
+
+    printf("%s\n", s);
+    
+
 }
