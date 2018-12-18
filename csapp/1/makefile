@@ -2,23 +2,24 @@ CC = clang
 
 FLAGS = "-Wall -O0"
 
-OBJS = main.o show_bytes.o
-
+# OBJS = main.o show_bytes.o
 # OBJS := $(patsubst %.c,%.o, $(wildcard *.c))
 # OBJS := $(wildcard *.o)
-# objects := $(patsubst %.c,%.o, $(wildcard *.c))
-# foo : $(objects)
-# 	${CC} foo $(objects)
+
+objects := $(patsubst %.c,%.o, $(wildcard *.c))
+main : $(objects)
+	${CC} -o main $(objects)
+	@${CC} -MM main.c
 
 # 查找源文件目录
-vpath %.c src
+# vpath %.c src
 # vpath %.o src
 # vpath %.h headers
 
-main: ${OBJS}
-	${CC} -o main ${OBJS}
-# 不显示命令
-	@${CC} -MM main.c
+# main: ${OBJS}
+# 	${CC} -o main ${OBJS}
+# # 不显示命令
+# 	@${CC} -MM main.c
 
 # 隐晦规则
 # main.o: 01.h
@@ -37,8 +38,7 @@ print: *.c
 .PHONY: clean all run
 # 放置在文件最后面
 clean:
-	@echo ${OBJS}
-	cat main.c
+	@cat main.c
 	-rm main ${OBJS}
 
 all:
