@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "01.h"
-#include "01.h"
 
 char s[65];
 int main(int argc, char *argv[])
