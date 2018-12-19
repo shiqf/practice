@@ -1,4 +1,7 @@
 :r !ls *.c
-:%s/^.\+$/echo >> test.mk; echo \/\\* & \/\\* >> test.mk; cat & >> test.mk/g
-:%s/^$/echo '```c' > test.mk/g
-:$norm oecho '```' >> test.mk
+:%s/^.\+$/echo >> markdown.mk; echo \/\\* & \/\\* >> markdown.mk; cat & >> markdown.mk/g
+:%s/^$/echo '```c' > markdown.mk/g
+:$norm oecho '```' >> markdown.mk
+:%s/markdown/2/g
+:w !sh
+:qa!
