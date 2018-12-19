@@ -1,7 +1,7 @@
 :r !ls *.c
-:%s/^.\+$/echo >> markdown.mk; echo \/\\* & \/\\* >> markdown.mk; cat & >> markdown.mk/g
-:%s/^$/echo '```c' > markdown.mk/g
-:$norm oecho '```' >> markdown.mk
+:%s/^.\+$/echo >> markdown.md; echo \/\\* & \/\\* >> markdown.md; cat & >> markdown.md/g
+:%s/^$/echo '```c' > markdown.md/g
+:$norm oecho '```' >> markdown.md
 :%s/markdown/2/g
 :w !sh
 :qa!
