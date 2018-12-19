@@ -93,11 +93,9 @@ void ito2(byte_pointer start, size_t len, char *s) {
 }
 
 void show_2int(int x, char *s) {
-    printf("%x: ", x);
     ito2((byte_pointer) &x, sizeof(int), s);
 }
 
 void show_2float(float x, char *s) {
-    printf("%f: ", x);
     ito2((byte_pointer) &x, sizeof(float), s);
 }
