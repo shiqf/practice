@@ -1,5 +1,5 @@
 CC = clang
-FLAGS = "-Wall -O0"
+FLAGS = "-Og"
 
 VPATH = src:headers
 # 查找源文件目录
@@ -9,7 +9,7 @@ headers := ${notdir ${wildcard headers/*.h}}
 objects := $(patsubst %.c,%.o, $(wildcard *.c))
 
 main : $(objects)
-	${CC} -o main $(objects)
+	${CC} -o main $(objects) ${FLAGS}
 
 # 伪目标
 .PHONY: clean all run
