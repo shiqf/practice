@@ -16,7 +16,6 @@ main : $(objects)
 
 # 放置在文件最后面
 clean:
-	@cat main.c
 	@-rm main ${objects}
 
 all:
