@@ -1,5 +1,5 @@
 CC = clang
-FLAGS = "-Og"
+FLAGS = -O0
 
 VPATH = src:headers
 # 查找源文件目录

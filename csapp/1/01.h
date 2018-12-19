@@ -16,4 +16,10 @@ extern void ito2(byte_pointer start, size_t len, char *s);
 
 extern void itoa(int val, char *s, int ary);
 
+/* 交换两个变量的值 */
+void inplace_swap(int *x, int *y);
+
+/* 置换数组值 */
+void reverse_array(int a[], int cnt);
+
 #endif /* ifndef __01_H__ */
