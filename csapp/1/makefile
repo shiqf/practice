@@ -17,10 +17,10 @@ main : $(objects)
 # 放置在文件最后面
 clean:
 	@cat main.c
-	@-rm main ${OBJS}
+	@-rm main ${objects}
 
 all:
-	-rm a.out main ${OBJS}
+	-rm a.out main ${objects}
 
 run:
 	@./main
