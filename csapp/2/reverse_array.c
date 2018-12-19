@@ -1,4 +1,4 @@
-#include "01.h"
+#include "02.h"
 
 void reverse_array(int a[], int cnt) {
     int first, last;

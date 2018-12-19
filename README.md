@@ -1,4 +1,6 @@
 # practice
 learn language note
 
-## first learnning c
+## csapp Exercise and Homework
+
+## leetcode Exercise
