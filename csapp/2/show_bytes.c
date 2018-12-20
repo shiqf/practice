@@ -1,8 +1,14 @@
 #include <stdio.h>
 #include <string.h>
 
+/* 重命名字符指针 */
 typedef unsigned char *byte_pointer;
 
+/*
+ * 显示数据内存中的真实值，方便验证主机是大端机、还是小端机
+ * 小端：内存低位显示的值是数值的低位
+ * 大端：内存低位显示的值是数值的高位
+ */
 void  show_bytes(byte_pointer start, size_t len) {
     size_t i;
 
@@ -12,18 +18,26 @@ void  show_bytes(byte_pointer start, size_t len) {
     printf("\n");
 }
 
+/* 整型数据在内存中按照字节序列值显示 */
 void show_int(int x) {
     show_bytes((byte_pointer) &x, sizeof(int));
 }
 
+/* 浮点数据在内存中按照字节序列值显示 */
 void show_float(float x) {
     show_bytes((byte_pointer) &x, sizeof(float));
 }
 
+/* 指针数据在内存中按照字节序列值显示 */
 void show_pointer(void *x) {
     show_bytes((byte_pointer) &x, sizeof(void *));
 }
 
+/*
+ * 整型数据的内存中字节序列显示
+ * 整型强制转换浮点数据的内存中字节序列显示
+ * 整型数据的地址在内存中字节序列显示
+ */
 void test_show_bytes(int val) {
     int ival = val;
     float fval = (float) ival;
@@ -33,6 +47,7 @@ void test_show_bytes(int val) {
     show_pointer(pval);
 }
 
+/* 整型数据转换成 ary 进制数组 */
 void itoa(int val, char *s, int ary) {
     printf("%d: ", val);
     int m, n, i = 0;
@@ -61,6 +76,7 @@ void itoa(int val, char *s, int ary) {
     printf("%s\n", s);
 }
 
+/* 数据转换成2进制数组 */
 void ito2(byte_pointer start, size_t len, char *s) {
     int i = 0;
     int j = 0;

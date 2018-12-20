@@ -1,5 +1,32 @@
 ```c
 
+/* 02.h */
+#ifndef __01_H__
+#define __01_H__
+#include <stdio.h>
+
+typedef unsigned char *byte_pointer;
+
+extern void show_int(int x);
+extern void show_float(float x);
+extern void  show_bytes(byte_pointer start, size_t len);
+
+extern void test_show_bytes(int val);
+
+extern void show_2int(int x, char *s);
+extern void show_2float(float x, char *s);
+extern void ito2(byte_pointer start, size_t len, char *s);
+
+extern void itoa(int val, char *s, int ary);
+
+/* 置换两个变量的值，需要注意 x 和 y 的值不能相同(地址)。 a = a ^a => a = 0; */
+void inplace_swap(int *x, int *y);
+
+/* 置换数组值 */
+void reverse_array(int a[], int cnt);
+
+#endif /* ifndef __01_H__ */
+
 /* inplace_swap.c */
 void inplace_swap(int *x, int *y) {
     *y ^= *x;
@@ -28,6 +55,7 @@ void inplace_swap(int *x, int *y) {
 char s[65];
 int main(int argc, char *argv[])
 {
+    printf("%d\n", INT_MIN);
 
     /* /1* 补码表示 *1/ */
     /* short x = 12345; */
@@ -91,6 +119,10 @@ int main(int argc, char *argv[])
 #include "02.h"
 
 void reverse_array(int a[], int cnt) {
+    /*
+     * 置换两个变量的值，需要注意 first 和 last 的值不能相同(地址)。
+     * a = a ^a => a = 0;
+     */
     int first, last;
     for (first = 0, last = cnt - 1; first < last; first++, last--) {
         inplace_swap(a + first, a + last);
@@ -101,8 +133,14 @@ void reverse_array(int a[], int cnt) {
 #include <stdio.h>
 #include <string.h>
 
+/* 重命名字符指针 */
 typedef unsigned char *byte_pointer;
 
+/*
+ * 显示数据内存中的真实值，方便验证主机是大端机、还是小端机
+ * 小端：内存低位显示的值是数值的低位
+ * 大端：内存低位显示的值是数值的高位
+ */
 void  show_bytes(byte_pointer start, size_t len) {
     size_t i;
 
@@ -112,18 +150,26 @@ void  show_bytes(byte_pointer start, size_t len) {
     printf("\n");
 }
 
+/* 整型数据在内存中按照字节序列值显示 */
 void show_int(int x) {
     show_bytes((byte_pointer) &x, sizeof(int));
 }
 
+/* 浮点数据在内存中按照字节序列值显示 */
 void show_float(float x) {
     show_bytes((byte_pointer) &x, sizeof(float));
 }
 
+/* 指针数据在内存中按照字节序列值显示 */
 void show_pointer(void *x) {
     show_bytes((byte_pointer) &x, sizeof(void *));
 }
 
+/*
+ * 整型数据的内存中字节序列显示
+ * 整型强制转换浮点数据的内存中字节序列显示
+ * 整型数据的地址在内存中字节序列显示
+ */
 void test_show_bytes(int val) {
     int ival = val;
     float fval = (float) ival;
@@ -133,6 +179,7 @@ void test_show_bytes(int val) {
     show_pointer(pval);
 }
 
+/* 整型数据转换成 ary 进制数组 */
 void itoa(int val, char *s, int ary) {
     printf("%d: ", val);
     int m, n, i = 0;
@@ -161,6 +208,7 @@ void itoa(int val, char *s, int ary) {
     printf("%s\n", s);
 }
 
+/* 数据转换成2进制数组 */
 void ito2(byte_pointer start, size_t len, char *s) {
     int i = 0;
     int j = 0;

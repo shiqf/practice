@@ -18,6 +18,7 @@
 char s[65];
 int main(int argc, char *argv[])
 {
+    printf("%d\n", INT_MIN);
 
     /* /1* 补码表示 *1/ */
     /* short x = 12345; */

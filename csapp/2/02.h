@@ -16,7 +16,7 @@ extern void ito2(byte_pointer start, size_t len, char *s);
 
 extern void itoa(int val, char *s, int ary);
 
-/* 交换两个变量的值 */
+/* 置换两个变量的值，需要注意 x 和 y 的值不能相同(地址)。 a = a ^a => a = 0; */
 void inplace_swap(int *x, int *y);
 
 /* 置换数组值 */
