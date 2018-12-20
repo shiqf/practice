@@ -4,6 +4,7 @@
 #ifndef __01_H__
 #define __01_H__
 #include <stdio.h>
+#include <inttypes.h>
 
 typedef unsigned char *byte_pointer;
 
@@ -20,11 +21,19 @@ extern void ito2(byte_pointer start, size_t len, char *s);
 extern void itoa(int val, char *s, int ary);
 
 /* 置换两个变量的值，需要注意 x 和 y 的值不能相同(地址)。 a = a ^a => a = 0; */
-void inplace_swap(int *x, int *y);
+extern void inplace_swap(int *x, int *y);
 
 /* 置换数组值 */
-void reverse_array(int a[], int cnt);
+extern void reverse_array(int a[], int cnt);
 
+extern float sum_elements(float a[], unsigned length);
+extern int strlonger(char *s, char *t);
+
+extern int uadd_ok(unsigned x, unsigned y);
+extern int tadd_ok(int x, int y);
+extern int tsub_ok(int x, int y);
+
+extern int64_t tmult_ok64(int x, int y);
 #endif /* ifndef __01_H__ */
 
 /* inplace_swap.c */
@@ -55,7 +64,54 @@ void inplace_swap(int *x, int *y) {
 char s[65];
 int main(int argc, char *argv[])
 {
-    printf("%d\n", INT_MIN);
+
+    /* /1* 2.36 *1/ */
+    /* int x = 0x7fffffff; */
+    /* int y = 0x7fffffff; */
+    /* printf("%d %d\n", x, y); */
+    /* printf("%lld\n", tmult_ok64(x, y)); */
+    
+    /* /1* 2.32 *1/ */
+    /* int x = 0x7fffffff; */
+    /* int y = 0xffffffff; */
+    /* printf("tsub_ok = %d\n", tsub_ok(x, y)); */
+
+    /* /1* 2.30 *1/ */
+    /* int x = 0x00000000; */
+    /* int y = 0x00000000; */
+    /* printf("tadd_ok = %d\n", tadd_ok(x, y)); */
+
+    /* /1* 2.27 *1/ */
+    /* unsigned x = INT_MAX; */
+    /* unsigned y = INT_MAX - 1; */
+    /* printf("%d\n", uadd_ok(x, y)); */
+
+    /* 2.26 */
+    /* char *s = "12343"; */
+    /* char *t = "123435"; */
+    /* printf("%d\n", strlonger(s, t)); */
+
+    /* /1* 2.23 *1/ */
+    /* /1* 逻辑位移及算数位移 *1/ */
+    /* unsigned int word = 0xedcba987; */
+    /* printf("word = %x\n", (int) ((word << 24) >> 24)); */
+    /* printf("word = %x\n", ((int) word << 24) >> 24); */
+
+    /* /1* 有符号整型最小值不对称 *1/ */
+    /* int x = -1; */
+    /* unsigned u = 2147483648; */
+    /* printf("x = %u = %d\n", x, x); */
+    /* printf("u = %u = %d\n", u, u); */
+    /* /1* 如果是小位数负数转换成大位数无符号整型，先算数添加符号位 *1/ */
+    /* short sx = -12345; */
+    /* printf("sx = %hd\n", sx); */
+    /* show_bytes((byte_pointer) &sx, sizeof(short)); */
+    /* printf("sx = %u\n", sx); */
+    /* show_bytes((byte_pointer) &sx, sizeof(unsigned)); */
+    /* /1* 等价于 (unsigned) (int) sx; 先改变其大小，在改变符号 *1/ */
+    /* unsigned uy = sx; */
+    /* printf("uy = %u\n", uy); */
+    /* show_bytes((byte_pointer) &uy, sizeof(unsigned)); */
 
     /* /1* 补码表示 *1/ */
     /* short x = 12345; */
@@ -248,8 +304,80 @@ void show_2float(float x, char *s) {
     ito2((byte_pointer) &x, sizeof(float), s);
 }
 
+/* strlonger.c */
+/* 2.26 */
+#include <string.h>
+
+int strlonger(char *s, char *t) {
+    return strlen(s) > strlen(t);
+}
+
 /* sum.c */
 int sum(int x, int y) {
     return x + y;
+}
+
+/* sum_elements.c */
+/* 2.25 */
+float sum_elements(float a[], unsigned length) {
+    unsigned i;
+    float result = 0;
+    if (0 == length)
+        return result;
+
+    for (i = 0; i <= length - 1; i++) {
+        result += a[i];
+    }
+
+    return result;
+}
+
+/* tadd_ok.c */
+/* 2.27 */
+int tadd_ok(int x, int y) {
+    int sum = x + y;
+
+    return !((x > 0 && y > 0 && sum < 0) || (x <= 0 && y <= 0 && sum > 0));
+}
+
+/* tmult_ok.c */
+/* 2.35 */
+
+int tmult_ok(int x, int y) {
+    int p = x * y;
+
+    return !x || p / x == y;
+}
+
+/* tmult_ok64.c */
+/* 2.36 */
+#include <inttypes.h>
+
+int64_t tmult_ok64(int x, int y) {
+    /* 显示强制类型转换 */
+    int64_t p = (int64_t)x * y;
+
+    return p;
+}
+
+/* tsub_ok.c */
+/* 2.32 */
+#include "02.h"
+#include <limits.h>
+
+int tsub_ok(int x, int y) {
+    if (INT_MIN == y) {
+        return 0;
+    }
+
+    return tadd_ok(x, -y);
+}
+
+/* uadd_ok.c */
+/* 2.27 */
+int uadd_ok(unsigned x, unsigned y) {
+    unsigned sum = x + y;
+
+    return sum >= x && sum >= y;
 }
 ```

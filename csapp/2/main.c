@@ -18,7 +18,54 @@
 char s[65];
 int main(int argc, char *argv[])
 {
-    printf("%d\n", INT_MIN);
+
+    /* /1* 2.36 *1/ */
+    /* int x = 0x7fffffff; */
+    /* int y = 0x7fffffff; */
+    /* printf("%d %d\n", x, y); */
+    /* printf("%lld\n", tmult_ok64(x, y)); */
+    
+    /* /1* 2.32 *1/ */
+    /* int x = 0x7fffffff; */
+    /* int y = 0xffffffff; */
+    /* printf("tsub_ok = %d\n", tsub_ok(x, y)); */
+
+    /* /1* 2.30 *1/ */
+    /* int x = 0x00000000; */
+    /* int y = 0x00000000; */
+    /* printf("tadd_ok = %d\n", tadd_ok(x, y)); */
+
+    /* /1* 2.27 *1/ */
+    /* unsigned x = INT_MAX; */
+    /* unsigned y = INT_MAX - 1; */
+    /* printf("%d\n", uadd_ok(x, y)); */
+
+    /* 2.26 */
+    /* char *s = "12343"; */
+    /* char *t = "123435"; */
+    /* printf("%d\n", strlonger(s, t)); */
+
+    /* /1* 2.23 *1/ */
+    /* /1* 逻辑位移及算数位移 *1/ */
+    /* unsigned int word = 0xedcba987; */
+    /* printf("word = %x\n", (int) ((word << 24) >> 24)); */
+    /* printf("word = %x\n", ((int) word << 24) >> 24); */
+
+    /* /1* 有符号整型最小值不对称 *1/ */
+    /* int x = -1; */
+    /* unsigned u = 2147483648; */
+    /* printf("x = %u = %d\n", x, x); */
+    /* printf("u = %u = %d\n", u, u); */
+    /* /1* 如果是小位数负数转换成大位数无符号整型，先算数添加符号位 *1/ */
+    /* short sx = -12345; */
+    /* printf("sx = %hd\n", sx); */
+    /* show_bytes((byte_pointer) &sx, sizeof(short)); */
+    /* printf("sx = %u\n", sx); */
+    /* show_bytes((byte_pointer) &sx, sizeof(unsigned)); */
+    /* /1* 等价于 (unsigned) (int) sx; 先改变其大小，在改变符号 *1/ */
+    /* unsigned uy = sx; */
+    /* printf("uy = %u\n", uy); */
+    /* show_bytes((byte_pointer) &uy, sizeof(unsigned)); */
 
     /* /1* 补码表示 *1/ */
     /* short x = 12345; */
