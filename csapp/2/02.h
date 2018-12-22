@@ -5,8 +5,12 @@
 
 typedef unsigned char *byte_pointer;
 
+/* 2.56 */
+extern void show_short(short x);
 extern void show_int(int x);
+extern void show_long(long x);
 extern void show_float(float x);
+extern void show_double(double x);
 extern void  show_bytes(byte_pointer start, size_t len);
 
 extern void test_show_bytes(int val);
@@ -32,4 +36,8 @@ extern int tsub_ok(int x, int y);
 
 extern int64_t tmult_ok64(int x, int y);
 extern int div(int x);
+
+/* 2.60 */
+extern unsigned replace_byte(unsigned x, int i, unsigned char b);
+
 #endif /* ifndef __01_H__ */

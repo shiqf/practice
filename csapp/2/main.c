@@ -18,6 +18,16 @@
 char s[65];
 int main(int argc, char *argv[])
 {
+
+    /* 2.60 */
+    printf("replace_byte = %x\n", replace_byte(0x12345678, 2, 0xab));
+    printf("replace_byte = %x\n", replace_byte(0x12345678, 0, 0xab));
+
+    /* /1* 2.59 *1/ */
+    /* int x = 0x89abcdef; */
+    /* int y = 0x76543210; */
+    /* printf("%x\n", (x & 0x000000ff) ^ (y & 0xffffff00)); */
+
     /* 浮点数的二进制表示 */
 
     /* /1* 2.42 *1/ */

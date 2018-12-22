@@ -18,14 +18,29 @@ void  show_bytes(byte_pointer start, size_t len) {
     printf("\n");
 }
 
+/* 短整型数据在内存中按照字节序列值显示 */
+void show_short(short x) {
+    show_bytes((byte_pointer) &x, sizeof(short));
+}
+
 /* 整型数据在内存中按照字节序列值显示 */
 void show_int(int x) {
     show_bytes((byte_pointer) &x, sizeof(int));
 }
 
+/* 长整型数据在内存中按照字节序列值显示 */
+void show_long(long x) {
+    show_bytes((byte_pointer) &x, sizeof(long));
+}
+
 /* 浮点数据在内存中按照字节序列值显示 */
 void show_float(float x) {
     show_bytes((byte_pointer) &x, sizeof(float));
+}
+
+/* 双精度浮点数据在内存中按照字节序列值显示 */
+void show_double(double x) {
+    show_bytes((byte_pointer) &x, sizeof(double));
 }
 
 /* 指针数据在内存中按照字节序列值显示 */
@@ -39,11 +54,17 @@ void show_pointer(void *x) {
  * 整型数据的地址在内存中字节序列显示
  */
 void test_show_bytes(int val) {
+    short sval = val;
     int ival = val;
+    long lval = val;
     float fval = (float) ival;
+    double dval = (double) ival;
     int *pval = &ival;
+    show_short(sval);
     show_int(ival);
+    show_long(lval);
     show_float(fval);
+    show_double(dval);
     show_pointer(pval);
 }
 
