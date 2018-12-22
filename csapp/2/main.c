@@ -19,14 +19,27 @@ char s[65];
 int main(int argc, char *argv[])
 {
 
-    /* 2.60 */
-    printf("replace_byte = %x\n", replace_byte(0x12345678, 2, 0xab));
-    printf("replace_byte = %x\n", replace_byte(0x12345678, 0, 0xab));
+    /* /1* 2.62 *1/ */
+    /* printf("int_shifts_are_arithmetic = %d\n", int_shifts_are_arithmetic()); */
+
+    /* /1* 2.61 *1/ */
+    /* int x = 0x0fffffff; */
+    /* printf("%d\n", !(x + 1)); */
+    /* printf("%d\n", !x); */
+    /* printf("%d\n", !((1 << 8) - x -1)); */
+    /* printf("%d\n", !(x >> 24)); */
+
+    /* /1* 2.60 *1/ */
+    /* printf("replace_byte = %x\n", replace_byte(0x12345678, 2, 0xab)); */
+    /* printf("replace_byte = %x\n", replace_byte(0x12345678, 0, 0xab)); */
 
     /* /1* 2.59 *1/ */
     /* int x = 0x89abcdef; */
     /* int y = 0x76543210; */
     /* printf("%x\n", (x & 0x000000ff) ^ (y & 0xffffff00)); */
+
+    /* /1* 2.58 *1/ */
+    /* printf("is_little_endian = %d\n", is_little_endian(0x12345678)); */
 
     /* 浮点数的二进制表示 */
 

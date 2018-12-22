@@ -37,7 +37,12 @@ extern int tsub_ok(int x, int y);
 extern int64_t tmult_ok64(int x, int y);
 extern int div(int x);
 
+/* 2.58 */
+extern int is_little_endian(int val);
+
 /* 2.60 */
 extern unsigned replace_byte(unsigned x, int i, unsigned char b);
 
+/* 2.62 */
+extern int int_shifts_are_arithmetic(void);
 #endif /* ifndef __01_H__ */

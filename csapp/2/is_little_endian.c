@@ -9,10 +9,18 @@ int is_little_endian(int val) {
     for (i = 0; i < length; ++i) {
         sum += *(p + i) << (i * 8);
     }
-
     if (sum == val) {
         return 1;
     }
 
-    return 0;
+    sum = 0;
+    for (i = 0; i < length; ++i) {
+        sum <<= 8;
+        sum += *(p + i);
+    }
+    if (sum == val) {
+        return 0;
+    }
+
+    return -1;
 }

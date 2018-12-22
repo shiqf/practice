@@ -8,8 +8,12 @@
 
 typedef unsigned char *byte_pointer;
 
+/* 2.56 */
+extern void show_short(short x);
 extern void show_int(int x);
+extern void show_long(long x);
 extern void show_float(float x);
+extern void show_double(double x);
 extern void  show_bytes(byte_pointer start, size_t len);
 
 extern void test_show_bytes(int val);
@@ -34,13 +38,65 @@ extern int tadd_ok(int x, int y);
 extern int tsub_ok(int x, int y);
 
 extern int64_t tmult_ok64(int x, int y);
+extern int div(int x);
+
+/* 2.58 */
+extern int is_little_endian(int val);
+
+/* 2.60 */
+extern unsigned replace_byte(unsigned x, int i, unsigned char b);
+
+/* 2.62 */
+extern int int_shifts_are_arithmetic(void);
 #endif /* ifndef __01_H__ */
+
+/* div16.c */
+/* 2.42 */
+int div(int x) {
+    int bias = (x >> 31) & 0xf;
+    return (x + bias)  >> 4;
+}
 
 /* inplace_swap.c */
 void inplace_swap(int *x, int *y) {
     *y ^= *x;
     *x ^= *y;
     *y ^= *x;
+}
+
+/* int_shifts_are_arithmetic.c */
+#include <limits.h>
+
+int int_shifts_are_arithmetic(void) {
+    return !((INT_MIN >> 31) + 1);
+}
+
+/* is_little_endian.c */
+#include "02.h"
+
+int is_little_endian(int val) {
+    char *p = (char *) &val;
+    int length = sizeof(int);
+    int sum = 0;
+
+    int i;
+    for (i = 0; i < length; ++i) {
+        sum += *(p + i) << (i * 8);
+    }
+    if (sum == val) {
+        return 1;
+    }
+
+    sum = 0;
+    for (i = 0; i < length; ++i) {
+        sum <<= 8;
+        sum += *(p + i);
+    }
+    if (sum == val) {
+        return 0;
+    }
+
+    return -1;
 }
 
 /* main.c */
@@ -64,6 +120,36 @@ void inplace_swap(int *x, int *y) {
 char s[65];
 int main(int argc, char *argv[])
 {
+
+    /* /1* 2.62 *1/ */
+    /* printf("int_shifts_are_arithmetic = %d\n", int_shifts_are_arithmetic()); */
+
+    /* /1* 2.61 *1/ */
+    /* int x = 0x0fffffff; */
+    /* printf("%d\n", !(x + 1)); */
+    /* printf("%d\n", !x); */
+    /* printf("%d\n", !((1 << 8) - x -1)); */
+    /* printf("%d\n", !(x >> 24)); */
+
+    /* /1* 2.60 *1/ */
+    /* printf("replace_byte = %x\n", replace_byte(0x12345678, 2, 0xab)); */
+    /* printf("replace_byte = %x\n", replace_byte(0x12345678, 0, 0xab)); */
+
+    /* /1* 2.59 *1/ */
+    /* int x = 0x89abcdef; */
+    /* int y = 0x76543210; */
+    /* printf("%x\n", (x & 0x000000ff) ^ (y & 0xffffff00)); */
+
+    /* /1* 2.58 *1/ */
+    /* printf("is_little_endian = %d\n", is_little_endian(0x12345678)); */
+
+    /* 浮点数的二进制表示 */
+
+    /* /1* 2.42 *1/ */
+    /* int x = -128; */
+    /* int k = 4; */
+    /* printf("x = %x\n", (x < 0 ? x + (1<<k) -1 : x) >> k); */
+    /* printf("div = %x\n", div(x)); */
 
     /* /1* 2.36 *1/ */
     /* int x = 0x7fffffff; */
@@ -171,6 +257,16 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+/* replace_byte.c */
+unsigned replace_byte(unsigned x, int i, unsigned char b) {
+    char *p = (char *)&x;
+    *(p + i) ^= b;
+    b ^= *(p + i);
+    *(p + i) ^= b;
+
+    return x;
+}
+
 /* reverse_array.c */
 #include "02.h"
 
@@ -206,14 +302,29 @@ void  show_bytes(byte_pointer start, size_t len) {
     printf("\n");
 }
 
+/* 短整型数据在内存中按照字节序列值显示 */
+void show_short(short x) {
+    show_bytes((byte_pointer) &x, sizeof(short));
+}
+
 /* 整型数据在内存中按照字节序列值显示 */
 void show_int(int x) {
     show_bytes((byte_pointer) &x, sizeof(int));
 }
 
+/* 长整型数据在内存中按照字节序列值显示 */
+void show_long(long x) {
+    show_bytes((byte_pointer) &x, sizeof(long));
+}
+
 /* 浮点数据在内存中按照字节序列值显示 */
 void show_float(float x) {
     show_bytes((byte_pointer) &x, sizeof(float));
+}
+
+/* 双精度浮点数据在内存中按照字节序列值显示 */
+void show_double(double x) {
+    show_bytes((byte_pointer) &x, sizeof(double));
 }
 
 /* 指针数据在内存中按照字节序列值显示 */
@@ -227,11 +338,17 @@ void show_pointer(void *x) {
  * 整型数据的地址在内存中字节序列显示
  */
 void test_show_bytes(int val) {
+    short sval = val;
     int ival = val;
+    long lval = val;
     float fval = (float) ival;
+    double dval = (double) ival;
     int *pval = &ival;
+    show_short(sval);
     show_int(ival);
+    show_long(lval);
     show_float(fval);
+    show_double(dval);
     show_pointer(pval);
 }
 
