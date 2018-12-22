@@ -31,4 +31,5 @@ extern int tadd_ok(int x, int y);
 extern int tsub_ok(int x, int y);
 
 extern int64_t tmult_ok64(int x, int y);
+extern int div(int x);
 #endif /* ifndef __01_H__ */

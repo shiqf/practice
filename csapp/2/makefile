@@ -16,7 +16,7 @@ main : $(objects)
 
 # 放置在文件最后面
 clean:
-	@-rm main ${objects}
+	-rm main ${objects}
 
 all:
 	-rm a.out main ${objects}

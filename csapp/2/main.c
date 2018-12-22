@@ -18,6 +18,13 @@
 char s[65];
 int main(int argc, char *argv[])
 {
+    /* 浮点数的二进制表示 */
+
+    /* /1* 2.42 *1/ */
+    /* int x = -128; */
+    /* int k = 4; */
+    /* printf("x = %x\n", (x < 0 ? x + (1<<k) -1 : x) >> k); */
+    /* printf("div = %x\n", div(x)); */
 
     /* /1* 2.36 *1/ */
     /* int x = 0x7fffffff; */
