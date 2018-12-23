@@ -1,4 +1,4 @@
-:r !ls *.h *.c
+:r !ls *.[hc]
 :%s/^.\+$/echo >> markdown.md; echo \/\\* & \\*\/ >> markdown.md; cat & >> markdown.md/g
 :%s/^$/echo '```c' > markdown.md/g
 :$r !echo
