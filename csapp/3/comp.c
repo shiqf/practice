@@ -15,6 +15,8 @@
 
 #define COMP !=
 typedef long data_t;
+/* cmp    %rsi,%rdi */
+/* setne  %al */
 
 int comp(data_t a, data_t b) {
     return a COMP b;
