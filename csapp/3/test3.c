@@ -1,5 +1,5 @@
 long test(long x, long y, long z) {
-    long val = x + y;
+    long val = x + y + z;
     
     if (x < -3) {
         if (y > x) {
