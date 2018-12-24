@@ -1,8 +1,8 @@
-/* #define TEST >= */
-/* typedef long data_t; */
+#define TEST >=
+typedef long data_t;
 
-#define TEST ==
-typedef short data_t;
+/* #define TEST == */
+/* typedef short data_t; */
 
 /* #define TEST > */
 /* typedef unsigned char data_t; */
