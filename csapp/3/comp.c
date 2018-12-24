@@ -8,8 +8,13 @@
 /* cmp    %si,%di */
 /* setbe  %al */
 
-#define COMP <=
-typedef unsigned char data_t;
+/* #define COMP <= */
+/* typedef unsigned char data_t; */
+/* cmp    %sil,%dil */
+/* setbe  %al */
+
+#define COMP !=
+typedef long data_t;
 
 int comp(data_t a, data_t b) {
     return a COMP b;
