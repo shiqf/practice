@@ -5,10 +5,10 @@ long test(long x, long y, long z) {
         if (y > x) {
             val = x * y;
         } else {
-            val = x * z;
+            val = y * z;
         }
     } else if(x > 2) {
-        val = z * y;
+        val = z * x;
     }
 
     return val;
