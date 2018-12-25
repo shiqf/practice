@@ -1,14 +1,13 @@
-long test(long x, long y, long z) {
-    long val = x + y + z;
-    
-    if (x < -3) {
-        if (y > x) {
-            val = x * y;
+long test(long x, long y) {
+    long val = 8 * x;
+    if (y > 0) {
+        if (x >= y) {
+            val = y - x;
         } else {
-            val = y * z;
+            val = x + y;
         }
-    } else if(x > 2) {
-        val = z * x;
+    } else if (x <= -2) {
+        x += y;
     }
 
     return val;
