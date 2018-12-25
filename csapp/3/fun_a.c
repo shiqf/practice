@@ -5,5 +5,5 @@ long fun_a(unsigned long x) {
         x >>= 1;
     }
 
-    return val && 0x1;
+    return val & 0x1;
 }
