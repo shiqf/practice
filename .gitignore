@@ -55,3 +55,6 @@ tags
 
 # not need file
 *.csv
+
+# Disassemb
+*.s
