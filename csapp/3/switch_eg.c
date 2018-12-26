@@ -8,7 +8,7 @@ void switch_eg(long x, long n, long *dest) {
 
         case 102:
             val += 10;
-            break;
+            /* break; */
 
         case 103:
             val += 11;
