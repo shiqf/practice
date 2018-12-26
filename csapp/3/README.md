@@ -1,8 +1,40 @@
 ```c
 
 /* 3.4.c */
-typedef char src_t;
-typedef short dest_t;
+typedef long src_t;
+typedef long dest_t;
+/* mov    (%rdi),%rax */
+/* mov    %rax,(%rsi) */
+
+/* typedef char src_t; */
+/* typedef short dest_t; */
+/* movsbw (%rdi),%ax */
+/* mov    %ax,(%rsi) */
+
+/* typedef char src_t; */
+/* typedef unsigned dest_t; */
+/* movsbl (%rdi),%eax */
+/* mov    %eax,(%rsi) */
+
+/* typedef unsigned char src_t; */
+/* typedef long dest_t; */
+/* movzbl (%rdi),%eax */
+/* mov    %rax,(%rsi) */
+
+/* typedef int src_t; */
+/* typedef char dest_t; */
+/* mov    (%rdi),%eax */
+/* mov    %al,(%rsi) */
+
+/* typedef unsigned src_t; */
+/* typedef unsigned char dest_t; */
+/* mov    (%rdi),%eax */
+/* mov    %al,(%rsi) */
+
+/* typedef char src_t; */
+/* typedef short dest_t; */
+/* movsbw (%rdi),%ax */
+/* mov    %ax,(%rsi) */
 
 dest_t exchange(src_t *sp, dest_t *dp) {
     *dp = (dest_t) *sp;
@@ -21,6 +53,13 @@ void decode1(long *xp, long *yp, long *zp) {
     *zp = x;
 }
 
+/* arith.c */
+#define OP /
+
+long arith(long x) {
+    return x OP 8;
+}
+
 /* arith2.c */
 long arith2(long x, long y, long z) {
     long t1 = x ^ y;
@@ -31,12 +70,142 @@ long arith2(long x, long y, long z) {
     return t4;
 }
 
+/* comp.c */
+/* #define COMP < */
+/* typedef int data_t; */
+/* cmp    %esi,%edi */
+/* setl   %al */
+
+/* #define COMP <= */
+/* typedef unsigned short data_t; */
+/* cmp    %si,%di */
+/* setbe  %al */
+
+/* #define COMP <= */
+/* typedef unsigned char data_t; */
+/* cmp    %sil,%dil */
+/* setbe  %al */
+
+#define COMP !=
+typedef long data_t;
+/* cmp    %rsi,%rdi */
+/* setne  %al */
+
+int comp(data_t a, data_t b) {
+    return a COMP b;
+}
+
 /* exchange.c */
 long exchange(long *xp, long y) {
     long x = *xp;
     *xp = y;
 
     return x;
+}
+
+/* fact_do.c */
+long fact_do(long n) {
+    long result = 1;
+
+    do {
+        result *= n;
+        n--;
+    } while (n > 1);
+
+    return result;
+}
+
+/* fact_for.c */
+long fact_for(long n) {
+    long result = 1;
+
+    do {
+        result *= n;
+        n--;
+    } while (n > 1);
+
+    return result;
+}
+
+/* fact_while.c */
+long fact_while(long n) {
+    long result = 1;
+    while (n > 1) {
+        result *= n;
+        n--;
+    }
+
+    return result;
+}
+
+/* for2while.c */
+/* for (i = 0; i < 10; ++i) { */
+/*     if (i & 1) */
+/*         continue; */
+/*     sum += i; */
+/* } */
+
+long for2while(void) {
+    long sum = 0;
+    long i = 0;
+
+    while (i < 10) {
+        if (i & 1)
+            goto next;
+        sum += i;
+next:
+        i++;
+    }
+
+    return sum;
+}
+
+/* fun_a.c */
+long fun_a(unsigned long x) {
+    long val = 0;
+    while (x) {
+        val ^= x;
+        x >>= 1;
+    }
+
+    return val & 0x1;
+}
+
+/* fun_b.c */
+long fun_b(unsigned long x) {
+    long val = 0;
+    long i;
+
+    for (i = 64; i != 0; i--) {
+        val = (val << 1) | (x & 0x1);
+        x >>= 1;
+    }
+
+    return val;
+}
+
+/* loop_while.c */
+long loop_while(long a, long b)
+{
+    long result = 1;
+    while (a < b) {
+        result = result * (a + b);
+        a = a + 1;
+    }
+
+    return result;
+}
+
+/* loop_while2.c */
+long loop_while2(long a, long b)
+{
+    long result = b;
+    while (b > 0) {
+        result = a * b;
+        b = b - a;
+    }
+
+    return result;
 }
 
 /* main.c */
@@ -49,6 +218,17 @@ int main(void)
     long d;
     multstore(2, 3, &d);
     printf("2 * 3 --> %ld\n", d);
+    
+    long sum = 0;
+    long i;
+    for (i = 0; i < 10; ++i) {
+        if (i & 1)
+            continue;
+        printf("i = %ld\n", i);
+        sum += i;
+    }
+    
+    printf("sum = %ld\n", sum);
 
     return 0;
 }
@@ -64,6 +244,15 @@ long mult2(long, long);
 void multstore(long x, long y, long *dest) {
     long t = mult2(x, y);
     *dest = t;
+}
+
+/* remdiv.c */
+void remdiv(long x, long y,
+        long *qp, long *rp) {
+    long q = x/y;
+    long r = x%y;
+    *qp = q;
+    *rp = r;
 }
 
 /* scale.c */
@@ -87,5 +276,152 @@ long shift_left4_rightn(long x, long n) {
 
     return x;
 }
-```
 
+/* switch_eg.c */
+void switch_eg(long x, long n, long *dest) {
+    long val = x;
+
+    switch (n) {
+        case 100:
+            val *= 13;
+            break;
+
+        case 102:
+            val += 10;
+            /* break; */
+
+        case 103:
+            val += 11;
+            break;
+
+        case 104:
+        case 106:
+            val *= val;
+            break;
+
+        default:
+            val = 0;
+    }
+
+    *dest = val;
+}
+
+/* switch_eg_impl.c */
+void switch_eg_impl(long x, long n, long *dest) {
+
+    static void *jt[7] = {
+        &&loc_A, &&loc_def, &&loc_B,
+        &&loc_C, &&loc_D, &&loc_def,
+        &&loc_D
+    };
+
+    unsigned long index = n - 100;
+    long val;
+
+    if (index > 6)
+        goto loc_def;
+    goto *jt[index];
+loc_A:
+    val = x * 13;
+    goto done;;
+loc_B:
+    x = x + 10;
+    /* goto done;; */
+loc_C:
+    x = x + 11;
+    goto done;;
+loc_D:
+    val = x * x;
+    goto done;;
+loc_def:
+    val = 0;
+done:
+    *dest = val;
+}
+
+/* switcher.c */
+void switcher(long a, long b, long c, long *dest) {
+    long val = 0;
+
+    switch (a) {
+        case 5:
+            c = 15 ^ b;
+
+        case 0:
+            val = c + 112;
+            break;
+
+        case 2:
+        case 7:
+            val = (b + c) << 2;
+            break;
+
+        case 4:
+            val = a;
+            break;
+
+        default:
+            val = b;
+    }
+
+    *dest = val;
+}
+
+/* test.c */
+#define TEST >=
+typedef long data_t;
+
+/* #define TEST == */
+/* typedef short data_t; */
+
+/* #define TEST > */
+/* typedef unsigned char data_t; */
+
+/* #define TEST != */
+/* typedef int data_t; */
+
+int test(data_t a) {
+    return a TEST 0;
+}
+
+/* test2.c */
+long test(long x, long y, long z) {
+    long val = x + y + z;
+    
+    if (x < -3) {
+        if (y > x) {
+            val = x * y;
+        } else {
+            val = y * z;
+        }
+    } else if(x > 2) {
+        val = z * x;
+    }
+
+    return val;
+}
+
+/* test3.c */
+long test(long x, long y) {
+    long val = 8 * x;
+    if (y > 0) {
+        if (x < y)
+            val = y - x;
+        else
+            val = x & y;
+    } else if (y <= -2) {
+        val = x + y;
+    }
+
+    return val;
+}
+
+/* uremdiv.c */
+void uremdiv(unsigned long x, unsigned long y,
+        unsigned long *qp, unsigned long *rp) {
+    unsigned long q = x/y;
+    unsigned long r = x%y;
+    *qp = q;
+    *rp = r;
+}
+```
