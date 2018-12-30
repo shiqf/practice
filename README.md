@@ -22,6 +22,9 @@
 > Docker 在容器的基础上，进行了进一步的封装，从文件系统、网络互联到进程隔离等等，
 > 极大的简化了容器的创建和维护。使得 Docker 技术比虚拟机技术更为轻便、快捷。
 
+docker 的好处是不需要安装操作系统或者虚拟机（太费时间），可随时使用配置好的镜像
+文件
+
 详细说明看[dokcer 官方](https://docs.docker-cn.com/)
 
 ### 安装 docker
@@ -80,12 +83,33 @@ docker container exec -it containerId zsh
 
 Enjoy!
 
-另外：如果你觉得界面太单调或vim原始配置太简单。可以使用 zsh 的 [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) 的配置和自己的vim配置。
+另外：如果你觉得界面太单调或vim原始配置太简单。可以使用 zsh 的
+[oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) 的配置和自己的vim配置。
 
-# practice
+# 语言学习记录
 
-learn language note
+目录结构
 
-## csapp Exercise and Homework
+.
+├── README.md
+├── cpp_primer
+├── csapp
+│   ├── 1
+│   ├── 2
+│   ├── 3
+│   └── README.md
+├── leetcode
+│   ├── 1.two-sum.c
+│   ├── 2.add-two-numbers.c
+│   ├── 26.remove-duplicates-from-sorted-array.c
+│   └── 528.random-pick-with-weight.c
+├── modern
+│   ├── 2
+│   ├── 3
+│   └── 4
+└── test
+    ├── huanghou.c
+    └── main.c
 
-## leetcode Exercise
+## csapp 练习 和 家庭作业
+## leetcode 练习
