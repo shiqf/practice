@@ -30,6 +30,7 @@ docker 的好处是不需要安装操作系统或者虚拟机（太费时间）�
 ### 安装 docker
 
 brew 用户使用命令：``brew install docker``
+brew 安装说明[地址](https://brew.sh/index_zh-cn)
 
 其他 [docker 官方安装方法](https://docs.docker-cn.com/docker-for-mac/install/)
 
