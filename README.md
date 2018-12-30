@@ -91,26 +91,21 @@ Enjoy!
 
 目录结构
 
+```
 .
-├── README.md
 ├── cpp_primer
 ├── csapp
 │   ├── 1
 │   ├── 2
 │   ├── 3
-│   └── README.md
+│   └── test
 ├── leetcode
-│   ├── 1.two-sum.c
-│   ├── 2.add-two-numbers.c
-│   ├── 26.remove-duplicates-from-sorted-array.c
-│   └── 528.random-pick-with-weight.c
 ├── modern
 │   ├── 2
 │   ├── 3
 │   └── 4
 └── test
-    ├── huanghou.c
-    └── main.c
+```
 
 ## csapp 练习 和 家庭作业
 ## leetcode 练习
