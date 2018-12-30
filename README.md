@@ -109,3 +109,6 @@ Enjoy!
 
 ## csapp 练习 和 家庭作业
 ## leetcode 练习
+
+$$a^2 + b^2 = c^2$$
+
