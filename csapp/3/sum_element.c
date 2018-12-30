@@ -1,5 +1,5 @@
-#define M 8
-#define N 5
+#define M 5
+#define N 7
 
 long P[M][N];
 long Q[N][M];
