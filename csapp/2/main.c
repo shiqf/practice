@@ -19,6 +19,24 @@ char s[65];
 int main(int argc, char *argv[])
 {
 
+    /* /1* 2.66 *1/ */
+    /* printf("%x----->%x\n", 0xff00, leftmost_one(0xff00)); */
+
+    /* /1* 2.65 *1/ */
+    /* printf("%x %d\n", 0xfe, odd_ones(0xfe)); */
+    /* printf("%x %d\n", 0xff, odd_ones(0xff)); */
+
+    /* /1* 2.64 *1/ */
+    /* printf("%x---->%d\n", 0xa, any_odd_one(0xa)); */
+    /* printf("%x---->%d\n", 0x9, any_odd_one(0x9)); */
+    /* printf("%x---->%d\n", 0xaaaaaaaa, any_odd_one(0xaaaaaaaa)); */
+
+    /* /1* 2.63 *1/ */
+    /* printf("%x---->%x\n", (unsigned)0xffffffff >> 3, srl(0xffffffff, 3)); */
+    /* printf("%x---->%x\n", (unsigned)0x0000ffff >> 3, srl(0x0000ffff, 3)); */
+    /* printf("%x---->%x\n", (int)0xffffffff >> 3, sra(0xffffffff, 3)); */
+    /* printf("%x---->%x\n", (int)0x0000ffff >> 3, sra(0x0000ffff, 3)); */
+
     /* /1* 2.62 *1/ */
     /* printf("int_shifts_are_arithmetic = %d\n", int_shifts_are_arithmetic()); */
 

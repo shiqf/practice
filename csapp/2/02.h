@@ -45,4 +45,17 @@ extern unsigned replace_byte(unsigned x, int i, unsigned char b);
 
 /* 2.62 */
 extern int int_shifts_are_arithmetic(void);
+
+/* 2.63 */
+extern unsigned srl(unsigned x, int k);
+extern int sra(int x, int k);
+
+/* 2.64 */
+extern int any_odd_one(unsigned x);
+
+/* 2.65 */
+extern int odd_ones(unsigned x);
+
+/* 2.66 */
+extern int leftmost_one(unsigned x);
 #endif /* ifndef __01_H__ */
