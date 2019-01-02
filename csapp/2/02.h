@@ -65,4 +65,18 @@ extern int int_size_is_16(void);
 
 /* 2.68 */
 extern int lower_one_mask(int n);
+
+/* 2.69 */
+extern unsigned rotate_left(unsigned x, int n);
+
+/* 2.70 */
+extern int fits_bits(int x, int n);
+
+/* 2.71 */
+typedef unsigned packed_t;
+extern int xbyte(packed_t word, int bytenum);
+
+/* 2.73 */
+extern int saturating_add(int x, int y);
+
 #endif /* ifndef __01_H__ */

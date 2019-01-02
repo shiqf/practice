@@ -19,6 +19,27 @@ char s[65];
 int main(int argc, char *argv[])
 {
 
+    /* /1* 2.73 *1/ */
+    /* int x = 0x80000001; */
+    /* int y = 0xfffffff0; */
+    /* printf("x: %x | %d, y: %x | %d----> x + y: %x\n", x, x, y, y, saturating_add(x, y)); */
+
+    /* /1* 2.71 *1/ */
+    /* if (-1 >= (int)sizeof(int)) { */
+    /*     printf("hello world\n"); */
+    /* } else { */
+    /*     printf("ok\n"); */
+    /* } */
+
+    /* /1* 2.71 *1/ */
+    /* printf("%x\n", xbyte(0x00700000, 2)); */
+
+    /* /1* 2.70 *1/ */
+    /* printf("%d\n", fits_bits(0xFFFFFF00, 9)); */
+
+    /* /1* 2.69 *1/ */
+    /* printf("%x %x\n", 0x12345678, rotate_left(0x12345678, 28)); */
+
     /* /1* 2.68 *1/ */
     /* printf("%d %x\n", 32, lower_one_mask(32)); */
 

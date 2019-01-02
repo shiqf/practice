@@ -68,6 +68,20 @@ extern int int_size_is_16(void);
 
 /* 2.68 */
 extern int lower_one_mask(int n);
+
+/* 2.69 */
+extern unsigned rotate_left(unsigned x, int n);
+
+/* 2.70 */
+extern int fits_bits(int x, int n);
+
+/* 2.71 */
+typedef unsigned packed_t;
+extern int xbyte(packed_t word, int bytenum);
+
+/* 2.73 */
+extern int saturating_add(int x, int y);
+
 #endif /* ifndef __01_H__ */
 
 /* any_odd_one.c */
@@ -75,11 +89,24 @@ int any_odd_one(unsigned x) {
     return !!(0x55555555 & x);
 }
 
+/* copy_int.c */
+#include <string.h>
+
+void copy_int(int val, void *buf, int maxbytes) {
+    if (maxbytes >= (int)sizeof(val))
+        memcpy(buf, (void *) &val, sizeof(val));
+}
+
 /* div16.c */
 /* 2.42 */
 int div(int x) {
     int bias = (x >> 31) & 0xf;
     return (x + bias)  >> 4;
+}
+
+/* fits_bits.c */
+int fits_bits(int x, int n) {
+    return !((unsigned) x >> n);
 }
 
 /* get_msb.c */
@@ -188,6 +215,27 @@ int lower_one_mask(int n) {
 char s[65];
 int main(int argc, char *argv[])
 {
+
+    /* /1* 2.73 *1/ */
+    /* int x = 0x80000001; */
+    /* int y = 0xfffffff0; */
+    /* printf("x: %x | %d, y: %x | %d----> x + y: %x\n", x, x, y, y, saturating_add(x, y)); */
+
+    /* /1* 2.71 *1/ */
+    /* if (-1 >= (int)sizeof(int)) { */
+    /*     printf("hello world\n"); */
+    /* } else { */
+    /*     printf("ok\n"); */
+    /* } */
+
+    /* /1* 2.71 *1/ */
+    /* printf("%x\n", xbyte(0x00700000, 2)); */
+
+    /* /1* 2.70 *1/ */
+    /* printf("%d\n", fits_bits(0xFFFFFF00, 9)); */
+
+    /* /1* 2.69 *1/ */
+    /* printf("%x %x\n", 0x12345678, rotate_left(0x12345678, 28)); */
 
     /* /1* 2.68 *1/ */
     /* printf("%d %x\n", 32, lower_one_mask(32)); */
@@ -379,6 +427,28 @@ void reverse_array(int a[], int cnt) {
     for (first = 0, last = cnt - 1; first < last; first++, last--) {
         inplace_swap(a + first, a + last);
     }
+}
+
+/* rotate_left.c */
+unsigned rotate_left(unsigned x, int n) {
+    int w = 8 * sizeof(unsigned);
+    unsigned left = x << n;
+    unsigned right = x >> (w - n - 1) >> 1;
+
+    return left | right;
+}
+
+/* saturating_add.c */
+#include <limits.h>
+
+int saturating_add(int x, int y) {
+    if (x > 0 && y > 0 && x + y < x)
+        return INT_MAX;
+
+    if (x < 0 && y < 0 && x + y >= x)
+        return INT_MIN;
+
+    return x + y;
 }
 
 /* show_bytes.c */
@@ -629,5 +699,14 @@ int uadd_ok(unsigned x, unsigned y) {
     unsigned sum = x + y;
 
     return sum >= x && sum >= y;
+}
+
+/* xbyte.c */
+typedef unsigned packed_t;
+
+int xbyte(packed_t word, int bytenum) {
+    int left_move = (sizeof(int) - bytenum - 1) << 3;
+
+    return (int)(word << left_move) >> 24;
 }
 ```
