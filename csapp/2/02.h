@@ -58,4 +58,11 @@ extern int odd_ones(unsigned x);
 
 /* 2.66 */
 extern int leftmost_one(unsigned x);
+
+/* 2.67 */
+extern int int_size_is_32(void);
+extern int int_size_is_16(void);
+
+/* 2.68 */
+extern int lower_one_mask(int n);
 #endif /* ifndef __01_H__ */

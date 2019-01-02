@@ -19,6 +19,9 @@ char s[65];
 int main(int argc, char *argv[])
 {
 
+    /* /1* 2.68 *1/ */
+    /* printf("%d %x\n", 32, lower_one_mask(32)); */
+
     /* /1* 2.66 *1/ */
     /* printf("%x----->%x\n", 0xff00, leftmost_one(0xff00)); */
 

@@ -48,13 +48,47 @@ extern unsigned replace_byte(unsigned x, int i, unsigned char b);
 
 /* 2.62 */
 extern int int_shifts_are_arithmetic(void);
+
+/* 2.63 */
+extern unsigned srl(unsigned x, int k);
+extern int sra(int x, int k);
+
+/* 2.64 */
+extern int any_odd_one(unsigned x);
+
+/* 2.65 */
+extern int odd_ones(unsigned x);
+
+/* 2.66 */
+extern int leftmost_one(unsigned x);
+
+/* 2.67 */
+extern int int_size_is_32(void);
+extern int int_size_is_16(void);
+
+/* 2.68 */
+extern int lower_one_mask(int n);
 #endif /* ifndef __01_H__ */
+
+/* any_odd_one.c */
+int any_odd_one(unsigned x) {
+    return !!(0x55555555 & x);
+}
 
 /* div16.c */
 /* 2.42 */
 int div(int x) {
     int bias = (x >> 31) & 0xf;
     return (x + bias)  >> 4;
+}
+
+/* get_msb.c */
+int get_msb(int x) {
+    int shift_val = (sizeof(int) - 1) << 3;
+
+    int xright = x >> shift_val;
+
+    return xright & 0xff;
 }
 
 /* inplace_swap.c */
@@ -65,10 +99,26 @@ void inplace_swap(int *x, int *y) {
 }
 
 /* int_shifts_are_arithmetic.c */
-#include <limits.h>
-
 int int_shifts_are_arithmetic(void) {
-    return !((INT_MIN >> 31) + 1);
+    int i = -1;
+
+    return (i >> 1) == -1;
+}
+
+/* int_size_is_16.c */
+int int_size_is_16(void) {
+    int set_msb = 1 << 15 << 15 << 1;
+    int beyond_msb = set_msb << 1;
+
+    return set_msb && !beyond_msb;
+}
+
+/* int_size_is_32.c */
+int int_size_is_32(void) {
+    int set_msb = 1 << 31;
+    int beyond_msb = set_msb << 1;
+
+    return set_msb && !beyond_msb;
 }
 
 /* is_little_endian.c */
@@ -99,6 +149,24 @@ int is_little_endian(int val) {
     return -1;
 }
 
+/* leftmost_one.c */
+int leftmost_one(unsigned x) {
+    x |= x >> 1;
+    x |= x >> 2;
+    x |= x >> 4;
+    x |= x >> 8;
+    x |= x >> 16;
+
+    return (x >> 1) + 1;
+}
+
+/* lower_one_mask.c */
+int lower_one_mask(int n) {
+    unsigned msb = 1 << (n - 1) << 1;
+
+    return msb - 1;
+}
+
 /* main.c */
 #include <stdio.h>
 #include <string.h>
@@ -120,6 +188,27 @@ int is_little_endian(int val) {
 char s[65];
 int main(int argc, char *argv[])
 {
+
+    /* /1* 2.68 *1/ */
+    /* printf("%d %x\n", 32, lower_one_mask(32)); */
+
+    /* /1* 2.66 *1/ */
+    /* printf("%x----->%x\n", 0xff00, leftmost_one(0xff00)); */
+
+    /* /1* 2.65 *1/ */
+    /* printf("%x %d\n", 0xfe, odd_ones(0xfe)); */
+    /* printf("%x %d\n", 0xff, odd_ones(0xff)); */
+
+    /* /1* 2.64 *1/ */
+    /* printf("%x---->%d\n", 0xa, any_odd_one(0xa)); */
+    /* printf("%x---->%d\n", 0x9, any_odd_one(0x9)); */
+    /* printf("%x---->%d\n", 0xaaaaaaaa, any_odd_one(0xaaaaaaaa)); */
+
+    /* /1* 2.63 *1/ */
+    /* printf("%x---->%x\n", (unsigned)0xffffffff >> 3, srl(0xffffffff, 3)); */
+    /* printf("%x---->%x\n", (unsigned)0x0000ffff >> 3, srl(0x0000ffff, 3)); */
+    /* printf("%x---->%x\n", (int)0xffffffff >> 3, sra(0xffffffff, 3)); */
+    /* printf("%x---->%x\n", (int)0x0000ffff >> 3, sra(0x0000ffff, 3)); */
 
     /* /1* 2.62 *1/ */
     /* printf("int_shifts_are_arithmetic = %d\n", int_shifts_are_arithmetic()); */
@@ -255,6 +344,17 @@ int main(int argc, char *argv[])
     /* itoa(a, s, 2); */
 
     return 0;
+}
+
+/* odd_ones.c */
+int odd_ones(unsigned x) {
+    x ^= (x >> 1);
+    x ^= (x >> 2);
+    x ^= (x >> 4);
+    x ^= (x >> 8);
+    x ^= (x >> 16);
+
+    return x & 1;
 }
 
 /* replace_byte.c */
@@ -419,6 +519,39 @@ void show_2int(int x, char *s) {
 
 void show_2float(float x, char *s) {
     ito2((byte_pointer) &x, sizeof(float), s);
+}
+
+/* sra.c */
+int sra(int x, int k) {
+    int xsra = (unsigned) x >> k;
+
+    int w = 8 * sizeof(int);
+    unsigned z = 1 << (w - k - 1);
+
+    unsigned mask = z - 1;
+
+    unsigned right = mask & xsra;
+    /* 验证最高有效为0或1 */
+    unsigned left = ~mask & (~xsra + z);
+
+    return left | right;
+}
+
+/* srl.c */
+unsigned srl(unsigned x, int k) {
+    unsigned xsra = (int) x >> k;
+
+    int w = 8 * sizeof(int);
+    /*
+     * 该值是算数右移k位后在高位从左往右补全k个1
+     * 位移量(括号中当值)只能在0 到 w - 1(该处为31)之间，且k的取值范围在0～31之间
+     * 括号表达式中只能式 w -k - 1
+     * 移动k位需要在高位补全k个1，所以需要把-2
+     *
+     */
+    unsigned high_bit = 2 << (w - k - 1);
+
+    return xsra & high_bit - 1;
 }
 
 /* strlonger.c */
