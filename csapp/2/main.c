@@ -19,6 +19,11 @@ char s[65];
 int main(int argc, char *argv[])
 {
 
+    /* 2.75 */
+    unsigned x = 0x80000000;
+    unsigned y = 0x80000000;
+    printf("%x\n", unsigned_high_prod(x, y));
+
     /* /1* 2.73 *1/ */
     /* int x = 0x80000001; */
     /* int y = 0xfffffff0; */

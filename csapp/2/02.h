@@ -79,4 +79,7 @@ extern int xbyte(packed_t word, int bytenum);
 /* 2.73 */
 extern int saturating_add(int x, int y);
 
+/* 2.75 */
+extern int unsigned_high_prod(unsigned x, unsigned y);
+
 #endif /* ifndef __01_H__ */
