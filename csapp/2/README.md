@@ -82,6 +82,9 @@ extern int xbyte(packed_t word, int bytenum);
 /* 2.73 */
 extern int saturating_add(int x, int y);
 
+/* 2.75 */
+extern int unsigned_high_prod(unsigned x, unsigned y);
+
 #endif /* ifndef __01_H__ */
 
 /* any_odd_one.c */
@@ -215,6 +218,11 @@ int lower_one_mask(int n) {
 char s[65];
 int main(int argc, char *argv[])
 {
+
+    /* 2.75 */
+    unsigned x = 0x80000000;
+    unsigned y = 0x80000000;
+    printf("%x\n", unsigned_high_prod(x, y));
 
     /* /1* 2.73 *1/ */
     /* int x = 0x80000001; */
@@ -591,6 +599,15 @@ void show_2float(float x, char *s) {
     ito2((byte_pointer) &x, sizeof(float), s);
 }
 
+/* signed_high_prod.c */
+#include <stdio.h>
+#include <inttypes.h>
+#include <assert.h>
+
+int signed_high_prod(int x, int y) {
+
+}
+
 /* sra.c */
 int sra(int x, int k) {
     int xsra = (unsigned) x >> k;
@@ -701,6 +718,17 @@ int uadd_ok(unsigned x, unsigned y) {
     return sum >= x && sum >= y;
 }
 
+/* unsigned_high_prod.c */
+#include <inttypes.h>
+#include <stdio.h>
+#include <assert.h>
+
+unsigned unsigned_high_prod(unsigned x, unsigned y) {
+    uint64_t high = (uint64_t)x * y;
+
+    return high >> 32;
+}
+
 /* xbyte.c */
 typedef unsigned packed_t;
 
@@ -710,3 +738,4 @@ int xbyte(packed_t word, int bytenum) {
     return (int)(word << left_move) >> 24;
 }
 ```
+
