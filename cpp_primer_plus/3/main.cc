@@ -99,5 +99,36 @@ int main(void)
     /* cout << "\aYou entered " << code << "...\n"; */
     /* cout << "\aCode verified! Proceed with Plan Z3!\n"; */
 
+    /* /1* 3.8 *1/ */
+    /* cout.setf(ios_base::fixed, ios_base::floatfield); */
+    /* float tub = 10.0 / 3.0; */
+    /* double mint = 10.0 / 3.0; */
+    /* const float million = 1.0e6; */
+    /* cout << "tub = " << tub; */
+    /* cout << ", a million tubs = " << million * tub; */
+    /* cout << ",\nand ten million tubs = "; */
+    /* cout << 10 * million * tub << endl; */
+    /* cout << "mint = " << mint << " and a million mints = "; */
+    /* cout << million * mint << endl; */
+
+    /* /1* 3.9 *1/ */
+    /* float a = 2.34E+22f; */
+    /* float b = a + 1.0f; */
+    /* cout << "a = " << a << endl; */
+    /* cout << "b -a = " << b - a << endl; */
+
+    /* 3.10 */
+    float hats, heads;
+    cout.setf(ios_base::fixed, ios_base::floatfield);
+    cout << "Enter a number: ";
+    cin >> hats;
+    cout << "Enter another number: ";
+    cin >> heads;
+    cout << "hats = " << hats << "; heads = " << heads << endl;
+    cout << "hats + heads = " << hats + heads << endl;
+    cout << "hats - heads = " << hats - heads << endl;
+    cout << "hats * heads = " << hats * heads << endl;
+    cout << "hats / heads = " << hats / heads << endl;
+
     return 0;
 }
