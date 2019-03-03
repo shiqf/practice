@@ -14,6 +14,9 @@ using namespace std;
 /* 2.6 */
 double lightYearDistance(double);
 
+/* 2.7 */
+void time(int, int);
+
 int main(void)
 {
 
@@ -42,13 +45,21 @@ int main(void)
     /*     << fahrenheit(degrees) */
     /*     << " degrees Fahrenheit." << endl; */
 
-    /* 2.6 */
-    cout << "Enter the number of light years: ";
-    double lightYear;
-    cin >> lightYear;
-    cout << lightYear << " light years = "
-        << lightYearDistance(lightYear)
-        << " astronomical units." << endl;
+    /* /1* 2.6 *1/ */
+    /* cout << "Enter the number of light years: "; */
+    /* double lightYear; */
+    /* cin >> lightYear; */
+    /* cout << lightYear << " light years = " */
+    /*     << lightYearDistance(lightYear) */
+    /*     << " astronomical units." << endl; */
+
+    /* 2.7 */
+    int hours, minutes;
+    cout << "Enter the number of hours: ";
+    cin >> hours;
+    cout << "Enter the number of minutes: ";
+    cin >> minutes;
+    time(hours, minutes);
 
     return 0;
 }
@@ -73,3 +84,7 @@ double lightYearDistance(double lightYear) {
     return lightYear * 63240;
 }
 
+/* 2.7 */
+void time(int hours, int minutes) {
+    cout << "Time: " << hours << ":" << minutes << endl;
+}
