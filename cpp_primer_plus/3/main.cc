@@ -91,13 +91,13 @@ int main(void)
     /* cout.put('!'); */
     /* cout << endl << "Done" << endl; */
 
-    /* 3.7 */
-    cout << "\aOperation \"HyperHype\" is now activated!\n";
-    cout << "Enter yor agent code:_______\b\b\b\b\b\b\b";
-    long code;
-    cin >> code;
-    cout << "\aYou entered " << code << "...\n";
-    cout << "\aCode verified! Proceed with Plan Z3!\n";
+    /* /1* 3.7 *1/ */
+    /* cout << "\aOperation \"HyperHype\" is now activated!\n"; */
+    /* cout << "Enter yor agent code:_______\b\b\b\b\b\b\b"; */
+    /* long code; */
+    /* cin >> code; */
+    /* cout << "\aYou entered " << code << "...\n"; */
+    /* cout << "\aCode verified! Proceed with Plan Z3!\n"; */
 
     return 0;
 }
