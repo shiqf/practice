@@ -117,18 +117,32 @@ int main(void)
     /* cout << "a = " << a << endl; */
     /* cout << "b -a = " << b - a << endl; */
 
-    /* 3.10 */
-    float hats, heads;
-    cout.setf(ios_base::fixed, ios_base::floatfield);
-    cout << "Enter a number: ";
-    cin >> hats;
-    cout << "Enter another number: ";
-    cin >> heads;
-    cout << "hats = " << hats << "; heads = " << heads << endl;
-    cout << "hats + heads = " << hats + heads << endl;
-    cout << "hats - heads = " << hats - heads << endl;
-    cout << "hats * heads = " << hats * heads << endl;
-    cout << "hats / heads = " << hats / heads << endl;
+    /* /1* 3.10 *1/ */
+    /* float hats, heads; */
+    /* cout.setf(ios_base::fixed, ios_base::floatfield); */
+    /* cout << "Enter a number: "; */
+    /* cin >> hats; */
+    /* cout << "Enter another number: "; */
+    /* cin >> heads; */
+    /* cout << "hats = " << hats << "; heads = " << heads << endl; */
+    /* cout << "hats + heads = " << hats + heads << endl; */
+    /* cout << "hats - heads = " << hats - heads << endl; */
+    /* cout << "hats * heads = " << hats * heads << endl; */
+    /* cout << "hats / heads = " << hats / heads << endl; */
+
+    /* 3.14 */
+    int auks, bats, coots;
+    auks = 19.99 + 11.99;
+    bats = (int) 19.99 + (int) 11.99;
+    coots = int(19.99) + int (11.99);
+    cout << "auks = " << auks << ",bats = " << bats;
+    cout << ", coots = " << coots << endl;
+    char ch = 'Z';
+    cout << "The code for " << ch << " is ";
+    cout << int(ch) << endl;
+    cout << "yes, the code is ";
+    cout << static_cast<int>(ch) << endl;
+
 
     return 0;
 }
