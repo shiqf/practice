@@ -3,11 +3,12 @@
 
 int main(void)
 {
-    char line[255];
-    FILE *fp = fopen("test.txt", "r");
-    fgets(line, 255, fp);
-    fgets(line, 255, fp);
-    printf("%s\n", line);
+    char ch;
+    FILE *fp = fopen("if.c", "r");
+
+    /* while ((ch = getc(fp)) != EOF) { */
+    /*     putc(ch, stdout); */
+    /* } */
 
     fclose(fp);
     return 0;
