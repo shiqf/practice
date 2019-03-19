@@ -6,7 +6,7 @@ int main(void)
 {
     int i = 1;
     while (1) {
-        printf("%d\n", i);
+        printf("%08x %16d\n", i, i);
         sleep(1);
         i = i * 2;
     }
