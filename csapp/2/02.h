@@ -11,7 +11,7 @@ extern void show_int(int x);
 extern void show_long(long x);
 extern void show_float(float x);
 extern void show_double(double x);
-extern void  show_bytes(byte_pointer start, size_t len);
+extern void show_bytes(byte_pointer start, size_t len);
 
 extern void test_show_bytes(int val);
 

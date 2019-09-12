@@ -19,10 +19,10 @@ char s[65];
 int main(int argc, char *argv[])
 {
 
-    /* 2.75 */
-    unsigned x = 0x80000000;
-    unsigned y = 0x80000000;
-    printf("%x\n", unsigned_high_prod(x, y));
+    /* /1* 2.75 *1/ */
+    /* unsigned x = 0x80000000; */
+    /* unsigned y = 0x80000000; */
+    /* printf("%x\n", unsigned_high_prod(x, y)); */
 
     /* /1* 2.73 *1/ */
     /* int x = 0x80000001; */
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
     /* int y = 0x7fffffff; */
     /* printf("%d %d\n", x, y); */
     /* printf("%lld\n", tmult_ok64(x, y)); */
-    
+
     /* /1* 2.32 *1/ */
     /* int x = 0x7fffffff; */
     /* int y = 0xffffffff; */
@@ -149,7 +149,7 @@ int main(int argc, char *argv[])
     /* short mx = -x; */
     /* show_bytes((byte_pointer) &x, sizeof(short)); */
     /* show_bytes((byte_pointer) &mx, sizeof(short)); */
-    
+
     /* /1* 类型大小 *1/ */
     /* int32_t x = 0x12345678; */
     /* int64_t y = 0x1234567887654321; */
@@ -176,7 +176,7 @@ int main(int argc, char *argv[])
     /*     printf("%d ", a[i]); */
     /* } */
     /* printf("\n"); */
-    
+
     /* /1* 2.10 *1/ */
     /* int x = 8; */
     /* int y = 15; */
@@ -194,10 +194,10 @@ int main(int argc, char *argv[])
     /* show_2float(0x00359141, s); */
     /* printf("偏移量 %d\n", length); */
 
-    /* /1* 2.1 *1/ */
-    /* int a = 0x12345678; */
-    /* test_show_bytes(a); */
-    /* itoa(a, s, 2); */
+    /* 2.1 */
+    int a = 0x12345678;
+    test_show_bytes(a);
+    itoa(a, s, 2);
 
     return 0;
 }

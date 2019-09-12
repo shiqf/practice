@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
 
 /* 重命名字符指针 */
 typedef unsigned char *byte_pointer;
@@ -80,7 +81,7 @@ void itoa(int val, char *s, int ary) {
         val = n;
         i++;
     } while (n);
-    
+
     *(s + i) = '\0';
 
     int begin = 0;

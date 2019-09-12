@@ -1,63 +1,21 @@
 ```c
 
-/* 3.4.c */
-typedef long src_t;
-typedef long dest_t;
-/* mov    (%rdi),%rax */
-/* mov    %rax,(%rsi) */
+/* absdiff_se.c */
+long lt_cnt = 0;
+long ge_cnt = 0;
 
-/* typedef char src_t; */
-/* typedef short dest_t; */
-/* movsbw (%rdi),%ax */
-/* mov    %ax,(%rsi) */
+long absdiff_se(long x, long y)
+{
+    long result;
+    if (x < y) {
+        lt_cnt++;
+        result = y - x;
+    } else {
+        ge_cnt++;
+        result = x - y;
+    }
 
-/* typedef char src_t; */
-/* typedef unsigned dest_t; */
-/* movsbl (%rdi),%eax */
-/* mov    %eax,(%rsi) */
-
-/* typedef unsigned char src_t; */
-/* typedef long dest_t; */
-/* movzbl (%rdi),%eax */
-/* mov    %rax,(%rsi) */
-
-/* typedef int src_t; */
-/* typedef char dest_t; */
-/* mov    (%rdi),%eax */
-/* mov    %al,(%rsi) */
-
-/* typedef unsigned src_t; */
-/* typedef unsigned char dest_t; */
-/* mov    (%rdi),%eax */
-/* mov    %al,(%rsi) */
-
-/* typedef char src_t; */
-/* typedef short dest_t; */
-/* movsbw (%rdi),%ax */
-/* mov    %ax,(%rsi) */
-
-dest_t exchange(src_t *sp, dest_t *dp) {
-    *dp = (dest_t) *sp;
-
-    return *dp;
-}
-
-/* 3.5.c */
-void decode1(long *xp, long *yp, long *zp) {
-    long x, y, z;
-    x = *xp;
-    y = *yp;
-    z = *zp;
-    *xp = y;
-    *yp = z;
-    *zp = x;
-}
-
-/* arith.c */
-#define OP /
-
-long arith(long x) {
-    return x OP 8;
+    return result;;
 }
 
 /* arith2.c */
@@ -70,26 +28,45 @@ long arith2(long x, long y, long z) {
     return t4;
 }
 
+/* arith.c */
+#define OP /
+
+long arith(long x) {
+    return x OP 8;
+}
+
+/* call_proc.c */
+long call_proc()
+{
+    long x1 = 1;
+    int x2= 2;
+    short x3 = 3;
+    char x4 = 4;
+    proc(x1, &x1, x2, &x2, x3, &x3, x4, &x4);
+
+    return (x1 + x2) * (x3 + x4);
+}
+
 /* comp.c */
 /* #define COMP < */
 /* typedef int data_t; */
-/* cmp    %esi,%edi */
-/* setl   %al */
+/* /1* cmp    %esi,%edi *1/ */
+/* /1* setl   %al *1/ */
 
-/* #define COMP <= */
-/* typedef unsigned short data_t; */
-/* cmp    %si,%di */
-/* setbe  %al */
+/* #define COMP >= */
+/* typedef short data_t; */
+/* /1* cmp    %si,%di *1/ */
+/* /1* setbe  %al *1/ */
 
 /* #define COMP <= */
 /* typedef unsigned char data_t; */
-/* cmp    %sil,%dil */
-/* setbe  %al */
+/* /1* cmp    %sil,%dil *1/ */
+/* /1* setbe  %al *1/ */
 
 #define COMP !=
 typedef long data_t;
-/* cmp    %rsi,%rdi */
-/* setne  %al */
+/* /1* cmp    %rsi,%rdi *1/ */
+/* /1* setne  %al *1/ */
 
 int comp(data_t a, data_t b) {
     return a COMP b;
@@ -138,6 +115,43 @@ long fact_while(long n) {
     return result;
 }
 
+/* fcvt.c */
+double fcvt(int i, float *fp, double *dp, long *lp)
+{
+    float f = *fp;
+    double d = *dp;
+    long l = *lp;
+
+    *lp = (long) d;
+    *fp = (float) i;
+    *dp = (double) l;
+
+    return (double) f;
+}
+
+/* fix_prod_ele.c */
+#define N 16
+typedef int fix_matrix[N][N];
+
+int fix_prod_ele(fix_matrix A, fix_matrix B, long i, long k) {
+    long j;
+    int result = 0;
+
+    for (j = 0; j < N; j++) {
+        result += A[i][j] * B[j][k];
+    }
+
+    return result;
+}
+
+/* float_mov.c */
+float float_mov(float v1, float *src, float *dst) {
+    float v2 = *src;
+    *dst = v1;
+
+    return v2;
+}
+
 /* for2while.c */
 /* for (i = 0; i < 10; ++i) { */
 /*     if (i & 1) */
@@ -184,16 +198,45 @@ long fun_b(unsigned long x) {
     return val;
 }
 
-/* loop_while.c */
-long loop_while(long a, long b)
-{
-    long result = 1;
-    while (a < b) {
-        result = result * (a + b);
-        a = a + 1;
+/* fun.c */
+struct ELE {
+    long v;
+    struct ELE *p;
+};
+
+long fun(struct ELE *ptr) {
+    long sum = 0;
+    while (ptr) {
+        sum += ptr->v;
+        ptr = ptr->p;
     }
 
-    return result;
+    return sum;
+}
+
+/* gets.c */
+#include <stdio.h>
+
+char *gets_test(char *s)
+{
+    int c;
+    char *dest = s;
+    while ((c = getchar()) != '\n' && c != EOF) {
+        *dest++ = c;
+    }
+
+    if (c == EOF && dest ==s)
+        return NULL;
+    *dest++ = '\0';
+
+    return s;
+}
+
+void echo(void)
+{
+    char buf[8];
+    gets_test(buf);
+    puts(buf);
 }
 
 /* loop_while2.c */
@@ -203,6 +246,18 @@ long loop_while2(long a, long b)
     while (b > 0) {
         result = a * b;
         b = b - a;
+    }
+
+    return result;
+}
+
+/* loop_while.c */
+long loop_while(long a, long b)
+{
+    long result = 1;
+    while (a < b) {
+        result = result * (a + b);
+        a = a + 1;
     }
 
     return result;
@@ -246,6 +301,40 @@ void multstore(long x, long y, long *dest) {
     *dest = t;
 }
 
+/* P.c */
+long Q(long a)
+{
+    return a;
+}
+
+long P(long x, long y)
+{
+    long u = Q(y);
+    long v = Q(x);
+
+    return u + v;
+}
+
+/* proc.c */
+void proc(long a1, long *a1p,
+        int a2, int *a2p,
+        short a3, short *a3p,
+        char a4, char *a4p) {
+    *a1p += a1;
+    *a2p += a2;
+    *a3p += a3;
+    *a4p += a4;
+}
+
+/* procprob.c */
+unsigned procprob(int a, short b, long *u, char *v)
+{
+    *u += a;
+    *v += b;
+
+    return sizeof(a) + sizeof(b);
+}
+
 /* remdiv.c */
 void remdiv(long x, long y,
         long *qp, long *rp) {
@@ -255,16 +344,27 @@ void remdiv(long x, long y,
     *rp = r;
 }
 
-/* scale.c */
-long scale(long x, long y, long z) {
-    long t = x + 4 * y + 12 * z;
+/* rfun.c */
+long rfun(unsigned long x) {
+    if (x == 0) {
+        return 0;
+    }
+    unsigned long nx = x >> 2;
+    long rv = rfun(nx);
 
-    return t;
+    return x + rv;
 }
 
 /* scale2.c */
 long scale2(long x, long y, long z) {
     long t = 5 * x + 2 * y + 8 * z;
+
+    return t;
+}
+
+/* scale.c */
+long scale(long x, long y, long z) {
+    long t = x + 4 * y + 12 * z;
 
     return t;
 }
@@ -275,6 +375,58 @@ long shift_left4_rightn(long x, long n) {
     x >>= n;
 
     return x;
+}
+
+/* sp_init.c */
+struct prob {
+    int *p;
+    struct {
+        int x;
+        int y;
+    } s;
+
+    struct prob *next;
+};
+
+void sp_init(struct prob *sp) {
+    sp->s.x = sp->s.y;
+    sp->p = &sp->s.x;
+    sp->next = sp;
+}
+
+/* sum_element.c */
+#define M 5
+#define N 7
+
+/* T D[R][C] 数组可以写成 */
+/* &D[i][j] = D + L(C * i + j) */
+
+long P[M][N];
+long Q[N][M];
+
+long sum_element(long i, long j) {
+    return P[i][j] + Q[j][i];
+}
+
+/* swap_add.c */
+long swap_add(long *xp, long *yp)
+{
+    long x = *xp;
+    long y = *yp;
+    *xp = y;
+    *yp = x;
+
+    return x + y;
+}
+
+long caller(void)
+{
+    long arg1 = 634;
+    long arg2 = 1057;
+    long sum = swap_add(&arg1, &arg2);
+    long diff = arg1 - arg2;
+
+    return sum * diff;
 }
 
 /* switch_eg.c */
@@ -384,38 +536,6 @@ int test(data_t a) {
     return a TEST 0;
 }
 
-/* test2.c */
-long test(long x, long y, long z) {
-    long val = x + y + z;
-    
-    if (x < -3) {
-        if (y > x) {
-            val = x * y;
-        } else {
-            val = y * z;
-        }
-    } else if(x > 2) {
-        val = z * x;
-    }
-
-    return val;
-}
-
-/* test3.c */
-long test(long x, long y) {
-    long val = 8 * x;
-    if (y > 0) {
-        if (x < y)
-            val = y - x;
-        else
-            val = x & y;
-    } else if (y <= -2) {
-        val = x + y;
-    }
-
-    return val;
-}
-
 /* uremdiv.c */
 void uremdiv(unsigned long x, unsigned long y,
         unsigned long *qp, unsigned long *rp) {
@@ -423,5 +543,32 @@ void uremdiv(unsigned long x, unsigned long y,
     unsigned long r = x%y;
     *qp = q;
     *rp = r;
+}
+
+/* var_prod_ele_opt.c */
+int var_prod_ele_opt(long n, int A[n][n], int B[n][n], long i, long k) {
+    int *Arow = A[i];
+    int *Bptr = &B[0][k];
+    int result = 0;
+    long j;
+    for (j = 0; j < n; ++j) {
+        result += Arow[j] * *Bptr;
+        Bptr += n;
+    }
+
+    return result;
+}
+
+/* vframe.c */
+long vframe(long n, long idx, long *q)
+{
+    long i;
+    long *p[n];
+    p[0] = &i;
+    for (i = 0; i < n; ++i) {
+        p[i] = q;
+    }
+
+    return *p[idx];
 }
 ```

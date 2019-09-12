@@ -1,3 +1,5 @@
+#include "03.h"
+
 long call_proc()
 {
     long x1 = 1;
